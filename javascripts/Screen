@@ -1,0 +1,160 @@
+/*Nicole Strang
+  ITGM 315 -- Processing
+  11/07/2012
+  Final Project -- Beta
+  
+  Screens
+  The goal of this part of the project is to add images and finish the visual look of the game. Screens holds visuals and the game itself.
+  
+  */
+
+
+class Screens{
+  
+  
+  //Variables------------------------------------------------------------------------------------------------------------------------------------
+  Play game;
+  Timer myTimer;
+  int score, bestScore;
+  boolean init;
+  PImage end, start;
+  
+  
+  //Constructor----------------------------------------------------------------------------------------------------------------------------------
+  Screens(){
+    myTimer = new Timer(0, 300, millis());
+    game = new Play();
+    score = 0;
+    bestScore = 0;
+    init = true;
+    noStroke();
+    
+    end = loadImage("endScreen.jpg");
+    start = loadImage("startScreen.jpg");
+    
+    game.shuffle();
+  }
+  
+  //Show Start Screen----------------------------------------------------------------------------------------------------------------------------
+  void showStart(){
+    
+    score = 0;
+    image(start, width/2, height/2);
+    
+  }
+  
+  
+    //Show End Screen-----------------------------------------------------------------------------------------------------------------------------
+  void showEnd(){
+    init = true;
+    
+    image(end, width/2, height/2);
+   // drawBlank();
+    //fill(0);
+    text("Score: " +score+ "\nHigh Score: " +bestScore, width/2, 300);
+  }
+  
+  
+  //Show Game Screen-----------------------------------------------------------------------------------------------------------------------------
+  void showGame(){
+    
+    if( init == true ){
+      init = false;
+      newScreen.drawBlank();
+      game.shuffle();
+    }
+    
+    //Show Pieces
+    game.showPieces();
+    
+    //draw over score button
+    fill(255);
+    rect(175, 100, 500, 50);
+    
+    //draw score
+    fill(0);
+    text("Score: "+score, 175, 100);
+    
+    //draw new puzzle button
+    fill(100);
+    rect(175, 470, 200, 50);
+    fill(255);
+    text("New Puzzle", 175, 480);
+    
+    //draw end game button
+    fill(100);
+    rect(175, 540, 200, 50);
+    fill(255);
+    text("End Game", 175, 550);
+    
+   //If you click on the Next Puzzle button, reset the game and timer.
+   if( mousePressed==true && mouseX>=75 && mouseX<=275 && mouseY>=445 && mouseY<=495 ){
+     game.shuffle();
+     myTimer.reset(millis());
+   }
+  
+  //If the puzzle is not solved, allow the timer to run and the pieces to move.
+   if( game.checkSolved()==false ){
+    myTimer.counter(millis()); 
+     
+    for(int i=0; i<9; i++){
+      if( mousePressed==true && game.checkMouse(i)==true ){
+        game.movePiece(i);
+      } 
+     } 
+    }
+    
+    //If the puzzle is solved, update the score and reset the game and timer.
+    else if( game.checkSolved()==true ){
+      score+=1;
+      
+      if( score>=bestScore ){
+        bestScore = score;
+      }
+      
+      fill(255);
+      rect(175,100,200,50);
+      fill(0);
+      text("Score: "+score, 175, 100);
+      game.shuffle();
+      myTimer.reset(millis());
+    }
+    
+    //If the timer runs out, reset the game and timer.
+    if( myTimer.sendSeconds()<myTimer.sendMin() ){
+      game.shuffle();
+      myTimer.reset(millis());
+      score = 0;
+    }
+  }
+  
+  
+  //sendScore-----------------------------------------------------------------------------------------------------------------------------------
+  int sendScore(){
+    return score;
+  }
+  
+  
+  //sendBestScore-------------------------------------------------------------------------------------------------------------------------------
+  int sendBestScore(){
+    return bestScore;
+  }
+
+  
+  //draws a white background
+  void drawBlank(){
+    fill(255);
+    rect(width/2, height/2, width, height);
+  }
+  
+  
+  
+  
+}
+
+
+
+//End------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
