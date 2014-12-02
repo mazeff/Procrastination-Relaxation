@@ -1,0 +1,65 @@
+/*Nicole Strang
+  ITGM 315 -- Processing
+  11/07/2012
+  Final Project -- Beta
+  
+  Puzzle
+  The goal of this part of the project is to add images and finish the visual look of the game. The Puzzle class affects specific puzzle pieces.
+  */
+
+class Puzzle{
+  
+  
+  //Variables------------------------------------------------------------------------------------------------------------------------------------
+  int value, xpos, ypos;
+  PImage img;
+ 
+ 
+ //Constructor----------------------------------------------------------------------------------------------------------------------------------
+ Puzzle(int val, int xval, int yval, String name){
+  value = val;
+  xpos = xval;
+  ypos = yval;
+  img = loadImage(name);
+ }
+
+  
+  //Give the piece a new position---------------------------------------------------------------------------------------------------------------
+  void storePos(int xval, int yval){
+    xpos = xval;
+    ypos = yval;
+  }
+  
+  //Give the piece a new image------------------------------------------------------------------------------------------------------------------
+  void changeImg( String name ){
+    img = loadImage(name);
+  }
+  
+  
+  //Send the piece's X value--------------------------------------------------------------------------------------------------------------------
+  int sendX(){
+    return xpos;
+  }
+  
+  
+  //Send the piece's Y value--------------------------------------------------------------------------------------------------------------------
+  int sendY(){
+    return ypos;
+  }
+  
+  
+  //Draw the piece------------------------------------------------------------------------------------------------------------------------------
+  void create(){
+    image(img, xpos, ypos);
+    //fill(255);
+    //text(value+1, xpos, ypos);
+  }
+  
+}
+
+
+
+//End------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
