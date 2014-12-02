@@ -1,0 +1,67 @@
+/*Nicole Strang
+  ITGM 315 -- Processing
+  11/07/2012
+  Final Project -- Beta
+  
+  Timer
+  The goal of this part of the project is to add images and finish the visual look of the game. The Timer class stores the timer element.
+  */
+
+
+class Timer{
+  
+  
+  //Variables------------------------------------------------------------------------------------------------------------------------------------
+  int seconds, secMax, secMin, savedMS, currentMS;
+  
+  
+  //Constructor----------------------------------------------------------------------------------------------------------------------------------
+  Timer(int minimum, int maximum, int saveBit){
+    secMin = minimum;
+    secMax = maximum;
+    savedMS = saveBit;
+  }
+  
+  
+  //Counts down the time-------------------------------------------------------------------------------------------------------------------------
+  void counter(int currentTime){
+    
+  currentMS = currentTime;
+  seconds = secMax-(currentMS - savedMS)/1000;
+  
+  textAlign(CENTER);
+  noStroke();
+  fill(255);
+  rect(175, 50, 300, 50);
+  fill(0);
+  text("Time Left: "+seconds, 175, 50);
+  
+  }
+  
+  
+  //Resets the timer----------------------------------------------------------------------------------------------------------------------------
+  void reset(int currentTime){
+    seconds = secMax;
+    savedMS = currentTime;
+  }
+  
+  
+  //Sends the current second--------------------------------------------------------------------------------------------------------------------
+  int sendSeconds(){
+    return seconds;
+  }
+  
+  
+  //Sends the minimum required seconds----------------------------------------------------------------------------------------------------------
+  int sendMin(){
+    return secMin;
+  }
+  
+}
+
+
+
+//End------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
