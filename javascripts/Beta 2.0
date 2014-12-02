@@ -1,0 +1,86 @@
+
+//Variables------------------------------------------------------------------------------------------------------------------------------------- 
+PFont myFont;
+Screens newScreen;
+int state;
+
+final int ShowStart = 1;
+final int ShowGame = 2;
+final int ShowEnd = 3;
+
+
+
+
+//Setup----------------------------------------------------------------------------------------------------------------------------------------
+void setup(){
+  
+  textAlign(CENTER);
+  frameRate(24);
+  size(350,600);
+  background(255);
+  rectMode(CENTER);
+  imageMode(CENTER);
+  
+  state = ShowStart;
+  
+  newScreen = new Screens();
+  
+  myFont = createFont("Verdana", 24, true);
+  textFont(myFont);
+  
+  
+  
+}
+
+
+
+
+//Draw-----------------------------------------------------------------------------------------------------------------------------------------
+void draw(){
+  
+  switch(state){
+    
+    case ShowStart:
+      newScreen.showStart();
+      if( mousePressed==true && mouseButton==LEFT ){
+        state = ShowGame;
+      }
+      break;
+    
+    case ShowGame:
+      newScreen.showGame();
+      if( mousePressed==true && mouseX>=75 && mouseX<=275 && mouseY>=515 && mouseY<=565 ){
+        state = ShowEnd;
+      }
+      break;
+    
+    case ShowEnd:
+      newScreen.showEnd();
+      if( mousePressed==true && mouseButton==RIGHT ){
+        state = ShowStart;
+      }
+      break;
+    
+  }
+  //state switch
+  //1: start
+    //if mousepressed, change state to Game
+  //2: game
+    //while newScreen.sendPP()<5
+      //if mousepressed over Quit or loop ends, change state to End and gameRuns=false
+    //if newScreen.numPuzzlesPlayed()==5
+      //newScreen.resetPP();
+      //change state to End
+  //3: end
+    //if button 1 clicked, change state to Game
+    //show score and bestScore from Screens
+
+  
+}
+
+
+
+//End------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
